@@ -1,9 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-// GET index page.
+// GET index or dashboard page.
 router.get('/', function(req, res) {
-    res.render('index');
+
+    var user = req.user;
+
+    if (user) {
+        res.render('dashboard');
+    } else {
+        res.render('index');
+    }
 });
 
 module.exports = router;

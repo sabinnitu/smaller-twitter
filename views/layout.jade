@@ -23,9 +23,18 @@ html(lang='en')
               li
                 hr
               li
-                a(href='/users/create') Create new user
-              li
                 a(href='/posts/create') Create new post
+              li
+                hr
+              unless user
+                li
+                  a(href='/login') Login
+                li
+                  a(href='/register') Register
+
+              if user
+                li
+                  a(href='/logout') Logout
 
         div(class='col-md-10')
           block content

@@ -8,14 +8,23 @@
   },
   "dependencies": {
     "async": "^2.6.1",
+    "body-parser": "*",
     "cookie-parser": "~1.4.3",
+    "connect-flash": "*",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
     "express-validator": "^5.3.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "mongoose": "^5.3.11",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "bcryptjs": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
   },
   "devDependencies": {
     "nodemon": "^1.18.6"
