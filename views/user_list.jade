@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1=title
+
+    ul
+        each user in user_list
+            li
+                a(href=user.url) #{user.name}
+
+        else
+            li There are no users.
+
+    a.btn.btn-sm.btn-default(href='/') Back

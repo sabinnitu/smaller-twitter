@@ -7,6 +7,7 @@ block content
         each post in post_list
             li
                 a(href=post.url) #{post.message}
+                i  added by #{post.user.name}
 
         else
             li There are no posts.

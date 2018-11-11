@@ -1,20 +1,16 @@
 var Post = require('../models/post');
+var User = require('../models/user');
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
 var async = require('async');
 
-exports.index = function(req, res) {
-
-    res.render('index');
-
-};
-
 // Display list of all posts.
 exports.post_list = function(req, res) {
 
-    Post.find({}, 'message')
+    Post.find({}, 'user message')
+        .populate('user')
         .exec(function (err, list_posts) {
             if (err) { return next(err); }
             //Successful, so render
@@ -30,8 +26,9 @@ exports.post_detail = function(req, res, next) {
         post: function(callback) {
 
             Post.findById(req.params.id)
+                .populate('user')
                 .exec(callback);
-        }
+        },
     }, function(err, results) {
         if (err) { return next(err); }
         if (results.post==null) { // No results.
@@ -40,7 +37,7 @@ exports.post_detail = function(req, res, next) {
             return next(err);
         }
         // Successful, so render.
-        res.render('post_detail', { post: results.post } );
+        res.render('post_detail', { post: results.post, user: results.user } );
     });
 
 };
@@ -49,10 +46,12 @@ exports.post_detail = function(req, res, next) {
 exports.post_create_get = function(req, res, next) {
 
     async.parallel({
-
+        users: function(callback) {
+            User.find(callback);
+        },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('post_form', { title: 'Create Post' });
+        res.render('post_form', { title: 'Create Post', users: results.users });
     });
 
 };
@@ -61,6 +60,7 @@ exports.post_create_get = function(req, res, next) {
 exports.post_create_post = [
 
     // Validate fields.
+    body('user', 'User must not be empty.').isLength({ min: 1 }).trim(),
     body('message', 'Message must not be empty.').isLength({ min: 1 }).trim(),
 
     // Sanitize fields (using wildcard).
@@ -74,18 +74,22 @@ exports.post_create_post = [
 
         // Create a Post object with escaped and trimmed data.
         var post = new Post(
-            { message: req.body.message
+            {
+                user: req.body.user,
+                message: req.body.message
             });
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
 
-            // Get all posts and genres for form.
+            // Get all users for form.
             async.parallel({
-
+                users: function(callback) {
+                    User.find(callback);
+                },
             }, function(err, results) {
                 if (err) { return next(err); }
-                res.render('post_form', { title: 'Create Post', post: post, errors: errors.array() });
+                res.render('post_form', { title: 'Create Post', users:results.users, post: post, errors: errors.array() });
             });
             return;
         }
@@ -142,6 +146,9 @@ exports.post_update_get = function(req, res, next) {
 
     // Get post for form.
     async.parallel({
+        users: function(callback) {
+            User.find(callback);
+        },
         post: function(callback) {
             Post.findById(req.params.id).exec(callback);
         },
@@ -153,7 +160,7 @@ exports.post_update_get = function(req, res, next) {
             return next(err);
         }
         // Success.
-        res.render('post_form', { title: 'Update Post', post: results.post });
+        res.render('post_form', { title: 'Update Post', users: results.users, post: results.post });
     });
 
 };
@@ -175,7 +182,9 @@ exports.post_update_post = [
 
         // Create a Post object with escaped/trimmed data and old id.
         var post = new Post(
-            { message: req.body.message,
+            {
+                user: req.body.user,
+                message: req.body.message,
                 _id:req.params.id //This is required, or a new ID will be assigned!
             });
 
@@ -184,11 +193,13 @@ exports.post_update_post = [
 
             // Get all authors and genres for form.
             async.parallel({
-
+                users: function(callback) {
+                    User.find(callback);
+                },
             }, function(err, results) {
                 if (err) { return next(err); }
 
-                res.render('post_form', { title: 'Update Post', post: post, errors: errors.array() });
+                res.render('post_form', { title: 'Update Post', users: results.users, post: post, errors: errors.array() });
             });
             return;
         }
@@ -196,7 +207,7 @@ exports.post_update_post = [
             // Data from form is valid. Update the record.
             Post.findByIdAndUpdate(req.params.id, post, {}, function (err,thepost) {
                 if (err) { return next(err); }
-                // Successful - redirect to book detail page.
+                // Successful - redirect to post detail page.
                 res.redirect(thepost.url);
             });
         }

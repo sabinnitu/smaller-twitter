@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h1 #{user.name}
+
+    p Username: #{user.username}
+    p Email: #{user.email}
+    p Password: #{user.password}
+
+    hr
+
+    h2 Posts
+
+    ul
+        each post in posts
+            li #{post.message}
+
+    hr
+
+    p
+        a(href=user.url + '/delete') Delete user
+    p
+        a(href=user.url + '/update') Update user
+
+    a.btn.btn-sm.btn-default(href='/users') Back
