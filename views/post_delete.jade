@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1 #{post.message}
+
+    p Do you really want to delete this Post ?
+
+    form(method='POST' action='')
+        div.form-group
+            input#postid.form-control(type='hidden',name='postid', required='true', value=post._id )
+
+        button.btn.btn-primary(type='submit') Delete
+
+    a.btn.btn-sm.btn-default(href='/posts/' + post.id) Back
