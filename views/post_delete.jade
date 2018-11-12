@@ -1,14 +1,17 @@
 extends layout
 
 block content
-    h1 #{post.message}
+    div.card
+        div.card-body
+            h3.card-title.mb-0 #{post.message}
+            hr
+            p.text-muted Do you really want to delete this post?
+            form(method='POST' action='')
+                div.form-group
+                    input#postid.form-control(type='hidden',name='postid', required='true', value=post._id )
 
-    p Do you really want to delete this Post ?
+                button.btn.btn-danger(type='submit') Delete
 
-    form(method='POST' action='')
-        div.form-group
-            input#postid.form-control(type='hidden',name='postid', required='true', value=post._id )
+    br
 
-        button.btn.btn-primary(type='submit') Delete
-
-    a.btn.btn-sm.btn-default(href='/posts/' + post.id) Back
+    a.btn.btn-sm.btn-light.active(href='/posts/' + post.id) Back

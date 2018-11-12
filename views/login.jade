@@ -1,20 +1,22 @@
 extends layout
 
 block content
-    h1=title
+    div.card
+        div.card-body
+            h3.card-title Login
+            br
+            div.row
+                div.col-md-4
+                    form(method='POST' action='/login')
+                        div.form-group
+                            label(for='username') Username:
+                            input#username.form-control(type='text', placeholder='Username' name='username' required='true' autocomplete='off' )
+                        div.form-group
+                            label(for='password') Password:
+                            input#password.form-control(type='text', placeholder='Password' name='password' required='true' autocomplete='off' )
+                        button.btn.btn-primary(type='submit') Login
 
-    div.row
-        div.col-md-6
-            form(method='POST' action='/login')
-                div.form-group
-                    label(for='username') Username:
-                    input#username.form-control(type='text', placeholder='Username' name='username' required='true' autocomplete='off' )
-                div.form-group
-                    label(for='password') Password:
-                    input#password.form-control(type='text', placeholder='Password' name='password' required='true' autocomplete='off' )
-                button.btn.btn-primary(type='submit') Submit
-
-            if errors
-                ul
-                    for error in errors
-                        li!= error.msg
+                    if errors
+                        ul
+                            for error in errors
+                                li!= error.msg

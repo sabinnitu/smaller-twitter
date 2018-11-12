@@ -1,14 +1,16 @@
 extends layout
 
 block content
-    h1=title
+    div.card
+        div.card-body
+            h3.card-title=title
+            br
+            ul.list-group.list-group-flush
+                each user in user_list
+                    li.list-group-item
+                        a.btn.btn-sm.btn-dark.mr-4(href=user.url) View
+                        span.mr-3 #{user.name}
+                        span @#{user.username}
 
-    ul
-        each user in user_list
-            li
-                a(href=user.url) #{user.name}
-
-        else
-            li There are no users.
-
-    a.btn.btn-sm.btn-default(href='/') Back
+                else
+                    li There are no users.

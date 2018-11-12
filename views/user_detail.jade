@@ -1,25 +1,26 @@
 extends layout
 
 block content
-    h1 #{user.name}
+    div.card
+        div.card-body
+            h3.card-title.mb-0 #{user.name}
+            span.mr-3 @#{user.username}
+            hr
+            span #{user.email}
+            hr
+            div.btn-group.float-right
+                a.btn.btn-danger(href=user.url + '/update') Update
+                a.btn.btn-danger(href=user.url + '/delete') Delete
 
-    p Username: #{user.username}
-    p Email: #{user.email}
-    p Password: #{user.password}
+    br
 
-    hr
+    div.card
+        div.card-body
+            h5 All #{user.name}'s posts
+            ul.list-group.list-group-flush
+                each post in posts
+                    li.list-group-item #{post.message}
 
-    h2 Posts
+    br
 
-    ul
-        each post in posts
-            li #{post.message}
-
-    hr
-
-    p
-        a(href=user.url + '/delete') Delete user
-    p
-        a(href=user.url + '/update') Update user
-
-    a.btn.btn-sm.btn-default(href='/users') Back
+    a.btn.btn-sm.btn-light.active(href='/users') Back

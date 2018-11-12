@@ -1,15 +1,16 @@
 extends layout
 
 block content
-    h1=title
+    div.card
+        div.card-body
+            h3.card-title=title
+            br
+            ul.list-group.list-group-flush
+                each post in post_list
+                    li.list-group-item
+                        a.btn.btn-sm.btn-dark.mr-4(href=post.url) View
+                        span.mr-3 #{post.message}
+                        i.text-muted.small  added by #{post.user.name}
 
-    ul
-        each post in post_list
-            li
-                a(href=post.url) #{post.message}
-                i  added by #{post.user.name}
-
-        else
-            li There are no posts.
-
-    a.btn.btn-sm.btn-default(href='/') Back
+                else
+                    li There are no posts.

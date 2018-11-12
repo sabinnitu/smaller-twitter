@@ -7,9 +7,9 @@ router.get('/', function(req, res) {
     var user = req.user;
 
     if (user) {
-        res.render('dashboard');
-    } else {
         res.render('index');
+    } else {
+        res.render('landing');
     }
 });
 

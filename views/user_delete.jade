@@ -1,14 +1,18 @@
 extends layout
 
 block content
-    h1 #{user.name}
+    div.card
+        div.card-body
+            h3.card-title.mb-0 #{user.name}
+            span.mr-3 @#{user.username}
+            hr
+            p.text-muted Do you really want to delete this user?
+            form(method='POST' action='')
+                div.form-group
+                    input#userid.form-control(type='hidden',name='userid', required='true', value=user._id )
 
-    p Do you really want to delete this User ?
+                button.btn.btn-danger(type='submit') Delete
 
-    form(method='POST' action='')
-        div.form-group
-            input#userid.form-control(type='hidden',name='userid', required='true', value=user._id )
+    br
 
-        button.btn.btn-primary(type='submit') Delete
-
-    a.btn.btn-sm.btn-default(href='/users/' + user.id) Back
+    a.btn.btn-sm.btn-light.active(href='/users/' + user.id) Back

@@ -181,13 +181,11 @@ exports.user_update_post = [
     body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
     body('username', 'Username must not be empty.').isLength({ min: 1 }).trim(),
     body('email', 'Email must not be empty.').isLength({ min: 1 }).trim(),
-    body('password', 'Password must not be empty.').isLength({ min: 1 }).trim(),
 
     // Sanitize fields.
     sanitizeBody('name').trim().escape(),
     sanitizeBody('username').trim().escape(),
     sanitizeBody('email').trim().escape(),
-    sanitizeBody('password').trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -201,7 +199,6 @@ exports.user_update_post = [
                 name: req.body.name,
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password,
                 _id:req.params.id //This is required, or a new ID will be assigned!
             });
 
