@@ -17,3 +17,8 @@ a {
 .list-group-item:first-child {
   border-top: none;
 }
+
+.sidebar {
+  background-color: #ebf9ff;
+  border-radius: 6px;
+}

@@ -58,7 +58,8 @@ router.post('/register', function (req, res) {
                         name: name,
                         username: username,
                         email: email,
-                        password: password
+                        password: password,
+                        following: ['5be890bbf94ef53dbca90503', '5bec13cf2f7c4d05b16d2492']
                     });
                     User.createUser(newUser, function (err, user) {
                         if (err) throw err;

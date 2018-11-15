@@ -31,4 +31,8 @@ router.get('/:id', user_controller.user_detail);
 // GET request for list of all User items.
 router.get('/', user_controller.user_list);
 
+
+router.get('/:id/follow', user_controller.follow_post);
+
+
 module.exports = router;

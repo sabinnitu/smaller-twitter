@@ -8,9 +8,10 @@ block content
             ul.list-group.list-group-flush
                 each user in user_list
                     li.list-group-item
-                        a.btn.btn-sm.btn-dark.mr-4(href=user.url) View
+                        a(href=user.url)
+                            img.rounded-circle.mr-3(src="images/elon.png" style="width: 75px; height: 75px;")
                         span.mr-3 #{user.name}
-                        span @#{user.username}
-
+                        span.mr-3 @#{user.username}
+                        a.btn.btn-sm.btn-primary.float-right(href=user.url + '/follow') Follow
                 else
                     li There are no users.

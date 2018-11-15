@@ -3,8 +3,10 @@ extends layout
 block content
     div.card
         div.card-body
-            h3.card-title.mb-0 #{user.name}
-            span.mr-3 @#{user.username}
+            img.rounded.mr-3(src="/images/elon.png" style="width: 75px; height: 75px;")
+            h3.card-title.mb-0.mr-3.d-inline(style="vertical-align:middle") #{user.name}
+            hr
+            span @#{user.username}
             hr
             span #{user.email}
             hr

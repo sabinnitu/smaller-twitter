@@ -4,38 +4,41 @@ html(lang='en')
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')
-    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div(class='container-fluid')
       div(class='row')
         div(class='col-md-2')
           block sidebar
-            ul(class='sidebar-nav')
+            ul(class='sidebar-nav card bg-primary mt-0' style="padding: 20px;")
               li
-                a(href='/') Index
+                a.text-white(href='/') Index
               li
-                a(href='/users') All users
+                a.text-white(href='/users') All users
               li
-                a(href='/posts') All posts
+                a.text-white(href='/posts') All posts
               li
                 hr
               li
-                a(href='/posts/create') Create new post
+                a.text-white(href='/posts/create') Create new post
               li
                 hr
               unless user
                 li
-                  a(href='/login') Login
+                  a.text-white(href='/login') Login
                 li
-                  a(href='/register') Register
+                  a.text-white(href='/register') Register
 
               if user
                 li
-                  a(href='/logout') Logout
+                  a.text-white(href='/logout') Logout
 
         div(class='col-md-10')
           block content
+
+
+

@@ -225,3 +225,44 @@ exports.user_update_post = [
         }
     }
 ];
+
+// Following (test)
+exports.follow_post = [
+
+    (req, res, next) => {
+
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        var user = new User(
+            {
+                following: req.params.id,
+                _id: "5be86e431fb82a3c0321f8d8"
+                //_id: req.user._id,
+            });
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/error messages.
+
+            // Get all authors and genres for form.
+            async.parallel({}, function (err, results) {
+                if (err) {
+                    return next(err);
+                }
+
+                res.render('user_list', {title: 'Following', user: user, errors: errors.array()});
+            });
+            return;
+        }
+        else {
+            // Data from form is valid. Update the record.
+            User.findByIdAndUpdate("5be86e431fb82a3c0321f8d8", user, {}, function (err, theuser) {
+                if (err) {
+                    return next(err);
+                }
+                // Successful - redirect to user detail page.
+                res.redirect(theuser.url);
+            });
+        }
+    }
+];
