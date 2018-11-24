@@ -7,12 +7,12 @@ var User = require('../models/user');
 
 // Register
 router.get('/register', function (req, res) {
-    res.render('register');
+    res.render('auth/register');
 });
 
 // Login
 router.get('/login', function (req, res) {
-    res.render('login');
+    res.render('auth/login');
 });
 
 // Register User
@@ -59,7 +59,7 @@ router.post('/register', function (req, res) {
                         username: username,
                         email: email,
                         password: password,
-                        following: ['5be890bbf94ef53dbca90503', '5bec13cf2f7c4d05b16d2492']
+                        following: []
                     });
                     User.createUser(newUser, function (err, user) {
                         if (err) throw err;

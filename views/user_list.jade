@@ -1,4 +1,4 @@
-extends layout
+extends layouts/layout
 
 block content
     div.card
@@ -11,7 +11,11 @@ block content
                         a(href=user.url)
                             img.rounded-circle.mr-3(src="images/elon.png" style="width: 75px; height: 75px;")
                         span.mr-3 #{user.name}
-                        span.mr-3 @#{user.username}
-                        a.btn.btn-sm.btn-primary.float-right(href=user.url + '/follow') Follow
+                        span.text-secondary.mr-3 @#{user.username}
+
+                        if user.isFollowed(loggedUser)
+                            a.btn.btn-sm.btn-default.float-right(href=user.url + '/unfollow') Unfollow
+                        else
+                            a.btn.btn-sm.btn-primary.float-right(href=user.url + '/follow') Follow
                 else
                     li There are no users.

@@ -37,7 +37,7 @@ exports.post_detail = function(req, res, next) {
             return next(err);
         }
         // Successful, so render.
-        res.render('post_detail', { post: results.post, user: results.user } );
+        res.render('post_detail', { post: results.post, user: req.user } );
     });
 
 };

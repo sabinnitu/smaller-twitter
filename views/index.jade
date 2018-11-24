@@ -1,7 +1,18 @@
-extends layout
+extends layouts/layout
 
 block content
   div.card
-    div.card-body
-      h3.card-title Index
-      p.text-muted.m-0 User #{user.name} is logged.
+    div.card-body.p-0
+        each post in post_list
+          div.posts
+              div.row.p-3
+                  div.col-md-2
+                      a.btn.btn-primary.mr-4(href=post.url) View
+                  div.col-md-10
+                    p
+                      span.mr-2
+                        a(href=user.url) #{post.user.name}
+                      span.text-secondary @#{post.user.username}
+                    p.mb-0 #{post.message}
+        else
+          li There are no posts.

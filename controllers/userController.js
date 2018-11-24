@@ -4,16 +4,19 @@ var Post = require('../models/post');
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
+var dateFormat = require('dateformat');
+
 var async = require('async');
 
 // Display list of all users.
 exports.user_list = function(req, res) {
-
-    User.find({}, 'name username email')
+        //var currentUser = User.x(req.user)
+    User.find({}, 'name username email createdAt')
         .exec(function (err, list_users) {
             if (err) { return next(err); }
             //Successful, so render
-            res.render('user_list', { title: 'User List', user_list: list_users });
+            var loggedUser = req.user;
+            res.render('user_list', { title: 'User List', user_list: list_users, loggedUser: loggedUser, dateFormat: dateFormat });
         });
 
 };
@@ -226,20 +229,16 @@ exports.user_update_post = [
     }
 ];
 
-// Following (test)
-exports.follow_post = [
+// Follow
+exports.follow = [
 
     (req, res, next) => {
 
         // Extract the validation errors from a request.
         const errors = validationResult(req);
 
-        var user = new User(
-            {
-                following: req.params.id,
-                _id: "5be86e431fb82a3c0321f8d8"
-                //_id: req.user._id,
-            });
+        var user = req.user;
+        user.following.push(req.params.id);
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
@@ -256,12 +255,55 @@ exports.follow_post = [
         }
         else {
             // Data from form is valid. Update the record.
-            User.findByIdAndUpdate("5be86e431fb82a3c0321f8d8", user, {}, function (err, theuser) {
+            User.findByIdAndUpdate(user._id, user, {}, function (err, theuser) {
                 if (err) {
                     return next(err);
                 }
                 // Successful - redirect to user detail page.
-                res.redirect(theuser.url);
+                res.redirect('/users');
+            });
+        }
+    }
+];
+
+// Unfollow
+exports.unfollow = [
+
+    (req, res, next) => {
+
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        var user = req.user;
+        var following = user.following;
+
+        var array = following;
+        var index = array.indexOf(req.params.id);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/error messages.
+
+            // Get all authors and genres for form.
+            async.parallel({}, function (err, results) {
+                if (err) {
+                    return next(err);
+                }
+
+                res.render('user_list', {title: 'Following', user: user, errors: errors.array()});
+            });
+            return;
+        }
+        else {
+            // Data from form is valid. Update the record.
+            User.findByIdAndUpdate(user._id, user, {}, function (err, theuser) {
+                if (err) {
+                    return next(err);
+                }
+                // Successful - redirect to user detail page.
+                res.redirect('/users');
             });
         }
     }

@@ -1,3 +1,4 @@
+var express = require('express');
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
@@ -10,8 +11,13 @@ var UserSchema = new Schema(
         email: { type: String, unique: true, required: true, trim: true },
         password: { type: String, required: true },
         following: [{type: Schema.Types.ObjectId, ref: 'User'}]
+    },
+    {
+        timestamps: true
     }
 );
+
+
 
 // Virtual for user's URL
 UserSchema
@@ -19,6 +25,17 @@ UserSchema
     .get(function () {
         return '/users/' + this._id;
     });
+
+UserSchema.methods.isFollowed = function(user) {
+
+    var following = user.following;
+
+    function isInArray(value, array) {
+        return array.indexOf(value) > -1;
+    }
+
+    return isInArray(this._id, following);
+};
 
 var User = module.exports = mongoose.model('User', UserSchema);
 

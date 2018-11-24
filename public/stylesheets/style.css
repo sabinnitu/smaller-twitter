@@ -1,12 +1,27 @@
 body {
-  background-color: #f9f9f9;
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+.blue {
+  background-color: #007bff;
+}
+
+/* Auth */
+.height-100-vh {
+  height: 100vh;
+}
+
+.middle {
+  width: auto;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+/* End Auth */
 
 .sidebar-nav {
   margin-top: 20px;
@@ -21,4 +36,15 @@ a {
 .sidebar {
   background-color: #ebf9ff;
   border-radius: 6px;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.posts {
+  border-bottom: 1px solid #dfdfdf;
+}
+.posts:last-child {
+  border-bottom: none;
 }

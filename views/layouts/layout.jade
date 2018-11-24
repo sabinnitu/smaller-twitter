@@ -1,0 +1,60 @@
+doctype html
+html(lang='en')
+    head
+        title=title
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
+        link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous')
+        script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous")
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous")
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        nav(class='navbar navbar-expand-lg navbar-light navbar-fixed-top bg-light mb-3')
+            div(class='container')
+                //a(href='#' class='navbar-brand') smaller-twitter
+                div(class='collapse navbar-collapse')
+                    ul(class='navbar-nav mr-auto')
+                        li(class='nav-item')
+                            a(href="#" class='nav-link') Link
+                        li(class='nav-item')
+                            a(href="#" class='nav-link') Link
+                        li(class='nav-item')
+                            a(href="#" class='nav-link') Link
+
+                    form(class='form-inline my-2 my-lg-0 mr-3')
+                        input(class='form-control' type='search' placeholder='Search' aria-label='Search')
+
+                    button(class='btn btn-primary mr-3' type='button')
+                        i.fas.fa-keyboard
+
+                    ul(class='navbar-nav')
+                        li(class='nav-item dropdown')
+                            a(href='#' class='nav-link dropdown-toggle' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #{user.name}
+                            div(class='dropdown-menu' aria-labelledby='navbarDropdown')
+                                a(href='#' class='dropdown-item') Profile
+                                div(class='dropdown-divider')
+                                a(href='/logout' class='dropdown-item') Logout
+
+        div(class='container')
+            div(class='row')
+                div(class='col-md-3')
+                    block sidebar
+                        ul(class='sidebar-nav card bg-primary mt-0' style="padding: 20px;")
+                            li
+                                a.text-white(href='/') Index
+                            li
+                                a.text-white(href='/users') All users
+                            li
+                                a.text-white(href='/posts') All posts
+                            li
+                                hr
+                            li
+                                a.text-white(href='/posts/create') Create new post
+
+                div(class='col-md-9')
+                    block content
+
+
+

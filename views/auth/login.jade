@@ -1,0 +1,22 @@
+extends ../layouts/auth
+
+block content
+    div(class='row')
+        div(class='col-md-6 offset-md-3')
+            h2 Login
+            br
+            form(method='POST' action='/login')
+                div.form-group
+                    label(for='username') Username
+                    input#username(type='text', placeholder='Username' name='username' class='form-control' required='true' autocomplete='off' )
+                div.form-group
+                    label(for='password') Password
+                    input#password(type='password', placeholder='Password' name='password' class='form-control' required='true' autocomplete='off' )
+                button(type='submit' class='btn btn-primary') Login
+
+            a(href='/' class='btn btn-sm btn-link mt-5') Back
+
+            if errors
+                ul
+                    for error in errors
+                        li!= error.msg

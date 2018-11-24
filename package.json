@@ -24,7 +24,8 @@
     "bcryptjs": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "dateformat": "*"
   },
   "devDependencies": {
     "nodemon": "^1.18.6"

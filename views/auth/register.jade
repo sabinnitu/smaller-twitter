@@ -1,0 +1,31 @@
+extends ../layouts/auth
+
+block content
+    div(class='row')
+        div(class='col-md-6 offset-md-3')
+            h2 Register
+            br
+            form(method='POST' action='/register')
+                div.form-group
+                    label(for='name') Name
+                    input#name(type='text', placeholder='Name' name='name' class='form-control' required='true' autocomplete='off' )
+                div.form-group
+                    label(for='username') Username
+                    input#username(type='text', placeholder='Username' name='username' class='form-control' required='true' autocomplete='off' )
+                div.form-group
+                    label(for='email') Email
+                    input#email(type='email', placeholder='Email' name='email' class='form-control' required='true' autocomplete='off' )
+                div.form-group
+                    label(for='password') Password
+                    input#password.form-control(type='password', placeholder='Password' name='password' class='form-control' required='true' autocomplete='off' )
+                div.form-group
+                    label(for='password2') Confirm Password
+                    input#password2(type='password', placeholder='Confirm Password' name='password2' class='form-control' required='true' autocomplete='off' )
+                button(type='submit' class='btn btn-primary') Register
+
+            a(href='/' class='btn btn-sm btn-link mt-5') Back
+
+            if errors
+                ul
+                    for error in errors
+                        li!= error.msg
