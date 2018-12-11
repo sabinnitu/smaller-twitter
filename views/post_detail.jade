@@ -1,5 +1,4 @@
 extends layouts/layout
-
 block content
     div.card
         div.card-body
@@ -9,6 +8,18 @@ block content
             div.btn-group.float-right
                 a.btn.btn-danger(href=post.url + '/update') Update
                 a.btn.btn-danger(href=post.url + '/delete') Delete
+    br
+    form(method='POST' action='')
+        div.form-group
+            label(for='message') Comment:
+            input#message.form-control(type='text', placeholder='Message' name='message' required='true' autocomplete='off')
+        button.btn.btn-primary(type='submit') Add Comment
+
+    //- .input-group
+    //-     input.input-group-append(type="text")
+    //-     .input-group-append
+    //-         a.btn.btn-outline-secondary Add Comment
+
     br
 
     a.btn.btn-sm.btn-link.active(href='/posts') Back
