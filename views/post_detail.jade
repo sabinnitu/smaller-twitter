@@ -1,5 +1,4 @@
 extends layouts/layout
-
 block content
     div.card
         div.card-body
@@ -9,6 +8,21 @@ block content
             div.btn-group.float-right
                 a.btn.btn-danger(href=post.url + '/update') Update
                 a.btn.btn-danger(href=post.url + '/delete') Delete
+    br
+    ul.list-group.list-group-flush
+                each comment in comments
+                    li.list-group-item
+                        span.mr-3 #{comment.message}
+                        i.text-muted.small  added by #{comment.user}
+                else
+                    li There are no posts.
+    br
+    form(method='POST' action='')
+        div.form-group
+            label(for='message') Comment:
+            input#message.form-control(type='text', placeholder='Message' name='message' required='true' autocomplete='off')
+        button.btn.btn-primary(type='submit') Add Comment
+
     br
 
     a.btn.btn-sm.btn-link.active(href='/posts') Back
