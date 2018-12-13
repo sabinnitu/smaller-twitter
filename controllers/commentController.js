@@ -7,7 +7,18 @@ const { sanitizeBody } = require('express-validator/filter');
 
 var async = require('async');
 
+// exports.comment_list = function (req, res) {
+//     Comment.find({},'user post comment')
+//         .populate('user')
+//         .populate('post')
+//         .exec(function (err, list_comments){
+//             if(err){return next(err);}
+//             res.render('post_detail',{comment_list : list_comments});
+//         })
+// }
+
 // Handle create on COMMENT.
+
 exports.comment_create_post = [
 
     // Validate fields.

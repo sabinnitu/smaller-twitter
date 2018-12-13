@@ -1,5 +1,6 @@
 var Post = require('../models/post');
 var User = require('../models/user');
+var Comment = require('../models/comment');
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
@@ -29,6 +30,10 @@ exports.post_detail = function(req, res, next) {
                 .populate('user')
                 .exec(callback);
         },
+        comments: function(callback) {
+            Comment.find({ 'post': req.params.id }, 'message')
+                .exec(callback);
+        }
     }, function(err, results) {
         if (err) { return next(err); }
         if (results.post==null) { // No results.
@@ -36,8 +41,9 @@ exports.post_detail = function(req, res, next) {
             err.status = 404;
             return next(err);
         }
+        
         // Successful, so render.
-        res.render('post_detail', { post: results.post, user: req.user } );
+        res.render('post_detail', { post: results.post, user: req.user, comments: results.comments} );
     });
 
 };
