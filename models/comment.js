@@ -14,11 +14,12 @@ var CommentSchema = new Schema(
 );
 
 // Virtual for post's URL
+/*
 CommentSchema
     .virtual('url')
     .get(function () {
-        return '/posts/' + this._id;
+        return '/posts/' + this.post + '/comment/' + this._id;
     });
-
+*/
 //Export model
 module.exports = mongoose.model('Comment', CommentSchema);

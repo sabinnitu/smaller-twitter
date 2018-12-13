@@ -7,17 +7,17 @@ const { sanitizeBody } = require('express-validator/filter');
 
 var async = require('async');
 
-// exports.comment_list = function (req, res) {
-//     Comment.find({},'user post comment')
-//         .populate('user')
-//         .populate('post')
-//         .exec(function (err, list_comments){
-//             if(err){return next(err);}
-//             res.render('post_detail',{comment_list : list_comments});
-//         })
-// }
+exports.comment_list = function(req, res) {
 
-// Handle create on COMMENT.
+    Post.find({}, 'user message')
+        .populate('user')
+        .exec(function (err, list_posts) {
+            if (err) { return next(err); }
+            //Successful, so render
+            res.render('post_list', { title: 'Post List', post_list: list_posts });
+        });
+
+};
 
 exports.comment_create_post = [
 
@@ -56,3 +56,23 @@ exports.comment_create_post = [
         })
     }
 ];
+
+// Handle post delete on POST.
+exports.comment_delete_post = function(req, res, next) {
+
+    backURL=req.header('Referer') || '/';
+    async.parallel({
+        comment: function(callback) {
+            Comment.findById(req.body.commentid).exec(callback)
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
+        Comment.findByIdAndRemove(req.body.commentid, function deleteComment(err) {
+            if (err) { return next(err); }
+            // Success - go to post list
+            res.redirect(backURL);
+        });
+    });
+
+};

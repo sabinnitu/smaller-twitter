@@ -27,7 +27,9 @@ router.post('/:id/update', ensureAuthenticated, post_controller.post_update_post
 
 // GET request for one Post.
 router.get('/:id', ensureAuthenticated, post_controller.post_detail);
+
 router.post('/:id', ensureAuthenticated,comment_controller.comment_create_post);
+//router.post('/:id/comment/:commentId/delete', ensureAuthenticated, comment_controller.comment_delete_post);
 
 // GET request for list of all Post items.
 router.get('/', ensureAuthenticated, post_controller.post_list);

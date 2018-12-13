@@ -31,9 +31,10 @@ exports.post_detail = function(req, res, next) {
                 .exec(callback);
         },
         comments: function(callback) {
-            Comment.find({ 'post': req.params.id }, 'message')
+            Comment.find({ 'post': req.params.id }, 'user message')
+                .populate('user')
                 .exec(callback);
-        }
+        },
     }, function(err, results) {
         if (err) { return next(err); }
         if (results.post==null) { // No results.

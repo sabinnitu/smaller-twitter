@@ -12,8 +12,19 @@ block content
     ul.list-group.list-group-flush
                 each comment in comments
                     li.list-group-item
-                        span.mr-3 #{comment.message}
-                        i.text-muted.small  added by #{comment.user}
+                        div.row
+                            div.col-md-6
+                                span.mr-3 #{comment.message}
+                                i.text-muted.small  added by #{comment.user.name}
+
+                            div.col-md-6
+                                div.float-right
+                                    form(method='POST' action='/comments/' + comment_id + '/delete')
+                                        div.form-group
+                                            input#commentid.form-control(type='hidden',name='commentid', required='true', value=comment._id )
+
+                                        button.btn.btn-danger.btn-sm(type='submit')
+                                            i(class='fas fa-trash')
                 else
                     li There are no posts.
     br
